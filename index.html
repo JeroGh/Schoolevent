@@ -3,698 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Event Management System</title>
+    <title>School Event Management System (Cloud)</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        /* Auth Container */
-        .auth-container {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 450px;
-            margin: 50px auto;
-        }
-
-        .auth-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .logo {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 40px;
-        }
-
-        .auth-header h1 {
-            color: #333;
-            font-size: 28px;
-            margin-bottom: 10px;
-        }
-
-        .auth-header p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        .tab-buttons {
-            display: flex;
-            background: #f0f0f0;
-            border-radius: 10px;
-            padding: 5px;
-            margin-bottom: 30px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            background: transparent;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 500;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .tab-btn.active {
-            background: white;
-            color: #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: 500;
-            font-size: 14px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-
-        .btn-primary {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-        }
-
-        .admin-link {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-
-        .admin-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .admin-link a:hover {
-            text-decoration: underline;
-        }
-
-        .error-message,
-        .success-message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-        }
-
-        .error-message {
-            background: #fee;
-            color: #c33;
-            border-left: 4px solid #c33;
-        }
-
-        .success-message {
-            background: #d1fae5;
-            color: #065f46;
-            border-left: 4px solid #10b981;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        /* Dashboard */
-        .dashboard {
-            display: none;
-        }
-
-        .dashboard.active {
-            display: block;
-        }
-
-        .navbar {
-            background: white;
-            border-radius: 15px;
-            padding: 20px 30px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .navbar-brand {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .navbar-logo {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .navbar-info h2 {
-            font-size: 20px;
-            color: #333;
-            margin-bottom: 3px;
-        }
-
-        .navbar-info p {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .admin-badge {
-            display: inline-block;
-            padding: 4px 12px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-
-        .btn-logout {
-            padding: 10px 20px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 8px;
-            color: #666;
-            cursor: pointer;
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: background 0.3s;
-        }
-
-        .btn-logout:hover {
-            background: #e0e0e0;
-        }
-
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 30px;
-        }
-
-        .dashboard-header h2 {
-            font-size: 28px;
-            color: white;
-        }
-
-        .dashboard-header p {
-            color: rgba(255,255,255,0.9);
-            font-size: 14px;
-        }
-
-        .btn-add {
-            padding: 12px 24px;
-            background: white;
-            color: #667eea;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: transform 0.2s;
-        }
-
-        .btn-add:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Admin Panel Styles */
-        .admin-section {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .admin-section h3 {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 25px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .admin-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .admin-tab {
-            padding: 10px 20px;
-            background: #f5f5f5;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            color: #666;
-            transition: all 0.3s;
-        }
-
-        .admin-tab.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-
-        .users-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        .users-table th {
-            background: #f8f9fa;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            color: #333;
-            border-bottom: 2px solid #e0e0e0;
-        }
-
-        .users-table td {
-            padding: 12px;
-            border-bottom: 1px solid #f0f0f0;
-            color: #666;
-        }
-
-        .users-table tr:hover {
-            background: #f8f9fa;
-        }
-
-        .user-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            background: #10b981;
-            color: white;
-            border-radius: 12px;
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        .event-select-list {
-            max-height: 300px;
-            overflow-y: auto;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 15px;
-            margin-bottom: 20px;
-        }
-
-        .event-checkbox {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            margin-bottom: 10px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .event-checkbox:hover {
-            background: #e9ecef;
-        }
-
-        .event-checkbox input {
-            margin-right: 12px;
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-        }
-
-        .event-checkbox-info {
-            flex: 1;
-        }
-
-        .event-checkbox-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 4px;
-        }
-
-        .event-checkbox-date {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .notification-preview {
-            background: #f8f9fa;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        .notification-preview h5 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 16px;
-        }
-
-        .notification-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #667eea;
-        }
-
-        .notification-item-title {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .notification-item-details {
-            font-size: 13px;
-            color: #666;
-        }
-
-        .btn-send-notification {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .btn-send-notification:hover {
-            transform: translateY(-2px);
-        }
-
-        .btn-send-notification:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Event Form Styles */
-        .add-event-form {
-            display: none;
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .add-event-form.active {
-            display: block;
-        }
-
-        .add-event-form h3 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 20px;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .btn-submit {
-            padding: 12px 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .btn-cancel {
-            padding: 12px 30px;
-            background: #f5f5f5;
-            color: #666;
-            border: none;
-            border-radius: 10px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        /* Event List Styles */
-        .events-list {
-            display: grid;
-            gap: 20px;
-        }
-
-        .event-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-left: 5px solid;
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            transition: transform 0.2s;
-        }
-
-        .event-card:hover {
-            transform: translateY(-4px);
-        }
-
+        /* (Keeping the same beautiful CSS as before) */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .auth-container { background: white; border-radius: 20px; padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 450px; margin: 50px auto; }
+        .auth-header { text-align: center; margin-bottom: 30px; }
+        .logo { width: 80px; height: 80px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-size: 40px; }
+        .auth-header h1 { color: #333; font-size: 28px; margin-bottom: 10px; }
+        .auth-header p { color: #666; font-size: 14px; }
+        .tab-buttons { display: flex; background: #f0f0f0; border-radius: 10px; padding: 5px; margin-bottom: 30px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: transparent; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: 500; color: #666; transition: all 0.3s; }
+        .tab-btn.active { background: white; color: #667eea; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; font-size: 14px; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px 15px; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 15px; font-family: inherit; transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: #667eea; }
+        .btn-primary { width: 100%; padding: 14px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+        .btn-primary:hover { transform: translateY(-2px); }
+        .admin-link { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #e0e0e0; }
+        .admin-link a { color: #667eea; text-decoration: none; font-size: 14px; font-weight: 500; }
+        .admin-link a:hover { text-decoration: underline; }
+        .error-message, .success-message { padding: 12px; border-radius: 8px; margin-bottom: 20px; font-size: 14px; }
+        .error-message { background: #fee; color: #c33; border-left: 4px solid #c33; }
+        .success-message { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .hidden { display: none; }
+        .dashboard { display: none; }
+        .dashboard.active { display: block; }
+        .navbar { background: white; border-radius: 15px; padding: 20px 30px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .navbar-brand { display: flex; align-items: center; gap: 15px; }
+        .navbar-logo { width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .navbar-info h2 { font-size: 20px; color: #333; margin-bottom: 3px; }
+        .navbar-info p { font-size: 13px; color: #666; }
+        .admin-badge { display: inline-block; padding: 4px 12px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; font-size: 11px; font-weight: 600; margin-left: 10px; }
+        .btn-logout { padding: 10px 20px; background: #f5f5f5; border: none; border-radius: 8px; color: #666; cursor: pointer; font-size: 14px; display: flex; align-items: center; gap: 8px; transition: background 0.3s; }
+        .btn-logout:hover { background: #e0e0e0; }
+        .dashboard-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .dashboard-header h2 { font-size: 28px; color: white; }
+        .dashboard-header p { color: rgba(255,255,255,0.9); font-size: 14px; }
+        .btn-add { padding: 12px 24px; background: white; color: #667eea; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: transform 0.2s; }
+        .btn-add:hover { transform: translateY(-2px); }
+        .admin-section { background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .admin-section h3 { color: #333; font-size: 22px; margin-bottom: 25px; padding-bottom: 15px; border-bottom: 2px solid #f0f0f0; }
+        .admin-tabs { display: flex; gap: 10px; margin-bottom: 25px; }
+        .admin-tab { padding: 10px 20px; background: #f5f5f5; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; color: #666; transition: all 0.3s; }
+        .admin-tab.active { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .stat-card { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 12px; text-align: center; }
+        .stat-number { font-size: 36px; font-weight: 700; margin-bottom: 5px; }
+        .stat-label { font-size: 14px; opacity: 0.9; }
+        .users-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .users-table th { background: #f8f9fa; padding: 12px; text-align: left; font-weight: 600; color: #333; border-bottom: 2px solid #e0e0e0; }
+        .users-table td { padding: 12px; border-bottom: 1px solid #f0f0f0; color: #666; }
+        .users-table tr:hover { background: #f8f9fa; }
+        .user-badge { display: inline-block; padding: 4px 10px; background: #10b981; color: white; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .event-select-list { max-height: 300px; overflow-y: auto; border: 2px solid #e0e0e0; border-radius: 10px; padding: 15px; margin-bottom: 20px; }
+        .event-checkbox { display: flex; align-items: center; padding: 12px; margin-bottom: 10px; background: #f8f9fa; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .event-checkbox:hover { background: #e9ecef; }
+        .event-checkbox input { margin-right: 12px; width: 18px; height: 18px; cursor: pointer; }
+        .event-checkbox-info { flex: 1; }
+        .event-checkbox-title { font-weight: 600; color: #333; margin-bottom: 4px; }
+        .event-checkbox-date { font-size: 13px; color: #666; }
+        .notification-preview { background: #f8f9fa; border: 2px solid #e0e0e0; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+        .notification-preview h5 { color: #333; margin-bottom: 15px; font-size: 16px; }
+        .notification-item { background: white; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #667eea; }
+        .notification-item-title { font-weight: 600; color: #333; margin-bottom: 5px; }
+        .notification-item-details { font-size: 13px; color: #666; }
+        .btn-send-notification { width: 100%; padding: 14px; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: 600; cursor: pointer; transition: transform 0.2s; }
+        .btn-send-notification:hover { transform: translateY(-2px); }
+        .btn-send-notification:disabled { opacity: 0.5; cursor: not-allowed; }
+        .add-event-form { display: none; background: white; border-radius: 15px; padding: 30px; margin-bottom: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .add-event-form.active { display: block; }
+        .add-event-form h3 { color: #333; margin-bottom: 20px; font-size: 20px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        .form-buttons { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-submit { padding: 12px 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        .btn-cancel { padding: 12px 30px; background: #f5f5f5; color: #666; border: none; border-radius: 10px; font-weight: 600; cursor: pointer; }
+        .events-list { display: grid; gap: 20px; }
+        .event-card { background: white; border-radius: 15px; padding: 25px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border-left: 5px solid; display: flex; justify-content: space-between; align-items: start; transition: transform 0.2s; }
+        .event-card:hover { transform: translateY(-4px); }
         .event-card.exam { border-left-color: #ef4444; }
         .event-card.midsem { border-left-color: #f97316; }
         .event-card.src-week { border-left-color: #a855f7; }
         .event-card.assignment { border-left-color: #3b82f6; }
         .event-card.workshop { border-left-color: #10b981; }
         .event-card.other { border-left-color: #6b7280; }
-
-        .event-content {
-            flex: 1;
-        }
-
-        .event-badges {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
-            align-items: center;
-        }
-
-        .event-type {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-
+        .event-content { flex: 1; }
+        .event-badges { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+        .event-type { display: inline-block; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
         .event-type.exam { background: #fee2e2; color: #991b1b; }
         .event-type.midsem { background: #ffedd5; color: #9a3412; }
         .event-type.src-week { background: #f3e8ff; color: #6b21a8; }
         .event-type.assignment { background: #dbeafe; color: #1e40af; }
         .event-type.workshop { background: #d1fae5; color: #065f46; }
         .event-type.other { background: #f3f4f6; color: #374151; }
-
-        .event-urgent {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            color: #f97316;
-            font-size: 13px;
-            font-weight: 600;
-        }
-
-        .event-title {
-            font-size: 22px;
-            font-weight: 700;
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .event-description {
-            color: #666;
-            margin-bottom: 12px;
-            font-size: 14px;
-        }
-
-        .event-details {
-            display: flex;
-            gap: 20px;
-            color: #666;
-            font-size: 13px;
-        }
-
-        .event-detail {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .btn-delete {
-            padding: 10px;
-            background: #fee;
-            color: #c33;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-delete:hover {
-            background: #fdd;
-        }
-
-        .empty-state {
-            background: white;
-            border-radius: 15px;
-            padding: 60px;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .empty-state-icon {
-            font-size: 64px;
-            margin-bottom: 20px;
-            opacity: 0.3;
-        }
-
-        .empty-state h3 {
-            color: #333;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .empty-state p {
-            color: #666;
-            font-size: 14px;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-
-            .navbar {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-
-            .dashboard-header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        .event-urgent { display: flex; align-items: center; gap: 5px; color: #f97316; font-size: 13px; font-weight: 600; }
+        .event-title { font-size: 22px; font-weight: 700; color: #333; margin-bottom: 10px; }
+        .event-description { color: #666; margin-bottom: 12px; font-size: 14px; }
+        .event-details { display: flex; gap: 20px; color: #666; font-size: 13px; }
+        .event-detail { display: flex; align-items: center; gap: 5px; }
+        .btn-delete { padding: 10px; background: #fee; color: #c33; border: none; border-radius: 8px; cursor: pointer; transition: background 0.3s; }
+        .btn-delete:hover { background: #fdd; }
+        .empty-state { background: white; border-radius: 15px; padding: 60px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .empty-state-icon { font-size: 64px; margin-bottom: 20px; opacity: 0.3; }
+        .empty-state h3 { color: #333; font-size: 22px; margin-bottom: 10px; }
+        .empty-state p { color: #666; font-size: 14px; }
+        @media (max-width: 768px) { .form-row { grid-template-columns: 1fr; } .navbar { flex-direction: column; gap: 15px; text-align: center; } .dashboard-header { flex-direction: column; gap: 15px; text-align: center; } .stats-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -702,243 +118,144 @@
         <div class="auth-header">
             <div class="logo">📅</div>
             <h1>School Events</h1>
-            <p>Stay updated with campus events</p>
+            <p>Cloud-Connected Event System</p>
         </div>
-
         <div id="errorMessage" class="error-message hidden"></div>
-
         <div class="tab-buttons">
             <button class="tab-btn active" onclick="showTab('login')">Login</button>
             <button class="tab-btn" onclick="showTab('signup')">Sign Up</button>
         </div>
-
         <div id="loginForm">
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="loginEmail" placeholder="your.email@school.edu">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" placeholder="••••••••">
-            </div>
+            <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="student@school.edu"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="loginPassword" placeholder="••••••••"></div>
             <button class="btn-primary" onclick="handleLogin()">Login</button>
         </div>
-
         <div id="signupForm" class="hidden">
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" id="signupName" placeholder="John Doe">
-            </div>
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" id="signupEmail" placeholder="your.email@school.edu">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="signupPassword" placeholder="••••••••">
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" id="signupConfirmPassword" placeholder="••••••••">
-            </div>
+            <div class="form-group"><label>Full Name</label><input type="text" id="signupName" placeholder="John Doe"></div>
+            <div class="form-group"><label>Email</label><input type="email" id="signupEmail" placeholder="student@school.edu"></div>
+            <div class="form-group"><label>Password</label><input type="password" id="signupPassword" placeholder="••••••••"></div>
+            <div class="form-group"><label>Confirm Password</label><input type="password" id="signupConfirmPassword" placeholder="••••••••"></div>
             <button class="btn-primary" onclick="handleSignup()">Create Account</button>
         </div>
-
-        <div class="admin-link">
-            <a href="#" onclick="showAdminLogin(); return false;">Admin Login</a>
-        </div>
+        <div class="admin-link"><a href="#" onclick="showAdminLogin(); return false;">Admin Login</a></div>
     </div>
 
     <div id="adminAuthPage" class="auth-container hidden">
-        <div class="auth-header">
-            <div class="logo">🔐</div>
-            <h1>Admin Login</h1>
-            <p>Authorized access only</p>
-        </div>
-
+        <div class="auth-header"><div class="logo">🔐</div><h1>Admin Login</h1><p>Authorized access only</p></div>
         <div id="adminErrorMessage" class="error-message hidden"></div>
-
-        <div class="form-group">
-            <label>Admin Email</label>
-            <input type="email" id="adminEmail" placeholder="admin@school.edu">
-        </div>
-        <div class="form-group">
-            <label>Admin Password</label>
-            <input type="password" id="adminPassword" placeholder="••••••••">
-        </div>
+        <div class="form-group"><label>Admin Email</label><input type="email" id="adminEmail" placeholder="admin@school.edu"></div>
+        <div class="form-group"><label>Admin Password</label><input type="password" id="adminPassword" placeholder="••••••••"></div>
         <button class="btn-primary" onclick="handleAdminLogin()">Admin Login</button>
-
-        <div class="admin-link">
-            <a href="#" onclick="showUserLogin(); return false;">← Back to User Login</a>
-        </div>
+        <div class="admin-link"><a href="#" onclick="showUserLogin(); return false;">← Back to User Login</a></div>
     </div>
 
     <div id="dashboard" class="dashboard container">
         <div class="navbar">
-            <div class="navbar-brand">
-                <div class="navbar-logo">📅</div>
-                <div class="navbar-info">
-                    <h2>School Events</h2>
-                    <p id="welcomeMessage">Welcome back!</p>
-                </div>
-            </div>
-            <button class="btn-logout" onclick="handleLogout()">
-                <span>🚪</span> Logout
-            </button>
+            <div class="navbar-brand"><div class="navbar-logo">📅</div><div class="navbar-info"><h2>School Events</h2><p id="welcomeMessage">Welcome back!</p></div></div>
+            <button class="btn-logout" onclick="handleLogout()"><span>🚪</span> Logout</button>
         </div>
-
-        <div class="dashboard-header">
-            <div>
-                <h2>Upcoming Events</h2>
-                <p>Stay on top of your academic schedule</p>
-            </div>
-            <button class="btn-add" onclick="toggleAddEvent()">
-                <span>➕</span> Add Event
-            </button>
-        </div>
-
+        <div class="dashboard-header"><div><h2>Upcoming Events</h2><p>Synced from the Cloud</p></div><button class="btn-add" onclick="toggleAddEvent()"><span>➕</span> Add Event</button></div>
         <div id="addEventForm" class="add-event-form">
             <h3>Add New Event</h3>
             <div id="formError" class="error-message hidden"></div>
             <div class="form-row">
-                <div class="form-group">
-                    <label>Event Title *</label>
-                    <input type="text" id="eventTitle" placeholder="e.g., Physics Midterm">
-                </div>
-                <div class="form-group">
-                    <label>Event Type *</label>
+                <div class="form-group"><label>Event Title *</label><input type="text" id="eventTitle" placeholder="e.g., Physics Midterm"></div>
+                <div class="form-group"><label>Event Type *</label>
                     <select id="eventType">
-                        <option value="">Select type</option>
-                        <option value="exam">Exam</option>
-                        <option value="midsem">Midsem</option>
-                        <option value="src-week">SRC Week</option>
-                        <option value="assignment">Assignment</option>
-                        <option value="workshop">Workshop</option>
-                        <option value="other">Other</option>
+                        <option value="">Select type</option><option value="exam">Exam</option><option value="midsem">Midsem</option>
+                        <option value="src-week">SRC Week</option><option value="assignment">Assignment</option><option value="workshop">Workshop</option><option value="other">Other</option>
                     </select>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label>Date *</label>
-                    <input type="date" id="eventDate">
-                </div>
-                <div class="form-group">
-                    <label>Time *</label>
-                    <input type="time" id="eventTime">
-                </div>
-            </div>
-            <div class="form-group">
-                <label>Description</label>
-                <textarea id="eventDescription" rows="3" placeholder="Additional details about the event..."></textarea>
-            </div>
-            <div class="form-buttons">
-                <button class="btn-submit" onclick="handleAddEvent()">Add Event</button>
-                <button class="btn-cancel" onclick="toggleAddEvent()">Cancel</button>
-            </div>
+            <div class="form-row"><div class="form-group"><label>Date *</label><input type="date" id="eventDate"></div><div class="form-group"><label>Time *</label><input type="time" id="eventTime"></div></div>
+            <div class="form-group"><label>Description</label><textarea id="eventDescription" rows="3" placeholder="Additional details about the event..."></textarea></div>
+            <div class="form-buttons"><button class="btn-submit" onclick="handleAddEvent()">Add Event</button><button class="btn-cancel" onclick="toggleAddEvent()">Cancel</button></div>
         </div>
-
         <div id="eventsList" class="events-list"></div>
-
-        <div id="emptyState" class="empty-state hidden">
-            <div class="empty-state-icon">📚</div>
-            <h3>No Upcoming Events</h3>
-            <p>Add your first event to get started!</p>
-        </div>
+        <div id="emptyState" class="empty-state hidden"><div class="empty-state-icon">📚</div><h3>No Upcoming Events</h3><p>Add your first event to get started!</p></div>
     </div>
 
     <div id="adminDashboard" class="dashboard container">
         <div class="navbar">
-            <div class="navbar-brand">
-                <div class="navbar-logo">🔐</div>
-                <div class="navbar-info">
-                    <h2>Admin Panel</h2>
-                    <p>System Administration <span class="admin-badge">ADMIN</span></p>
-                </div>
-            </div>
-            <button class="btn-logout" onclick="handleLogout()">
-                <span>🚪</span> Logout
-            </button>
+            <div class="navbar-brand"><div class="navbar-logo">🔐</div><div class="navbar-info"><h2>Admin Panel</h2><p>Cloud Database <span class="admin-badge">ONLINE</span></p></div></div>
+            <button class="btn-logout" onclick="handleLogout()"><span>🚪</span> Logout</button>
         </div>
-
-        <div class="dashboard-header">
-            <div>
-                <h2>Event Management</h2>
-                <p>Manage users and send notifications</p>
-            </div>
-        </div>
-
+        <div class="dashboard-header"><div><h2>Event Management</h2><p>Manage users and send notifications</p></div></div>
         <div class="admin-section">
-            <h3>📊 System Statistics</h3>
+            <h3>📊 Live Statistics</h3>
             <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-number" id="adminTotalUsers">0</div>
-                    <div class="stat-label">Total Users</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="adminTotalEvents">0</div>
-                    <div class="stat-label">Total Events</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="adminUpcomingCount">0</div>
-                    <div class="stat-label">Upcoming Events</div>
-                </div>
+                <div class="stat-card"><div class="stat-number" id="adminTotalUsers">Loading...</div><div class="stat-label">Total Users</div></div>
+                <div class="stat-card"><div class="stat-number" id="adminTotalEvents">Loading...</div><div class="stat-label">Total Events</div></div>
             </div>
         </div>
-
         <div class="admin-section">
-            <div class="admin-tabs">
-                <button class="admin-tab active" onclick="showAdminTab('users')">Registered Users</button>
-                <button class="admin-tab" onclick="showAdminTab('notify')">Send Notifications</button>
-            </div>
-
+            <div class="admin-tabs"><button class="admin-tab active" onclick="showAdminTab('users')">Registered Users</button><button class="admin-tab" onclick="showAdminTab('notify')">Send Notifications</button></div>
             <div id="adminSuccessMessage" class="success-message hidden"></div>
-
             <div id="adminUsersTab">
+                <button class="btn-primary" style="max-width: 200px; margin-bottom: 20px;" onclick="loadAdminData()">🔄 Refresh Data</button>
                 <table class="users-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody id="adminUsersTableBody">
-                    </tbody>
+                    <thead><tr><th>Name</th><th>Email</th><th>Password (Demo Only)</th></tr></thead>
+                    <tbody id="adminUsersTableBody"></tbody>
                 </table>
             </div>
-
             <div id="adminNotifyTab" class="hidden">
                 <h4 style="color: #333; margin-bottom: 15px; font-size: 18px;">Select Events to Notify Users About:</h4>
-                <div id="adminEventSelectList" class="event-select-list">
-                </div>
-
-                <div id="adminNotificationPreview" class="notification-preview hidden">
-                    <h5>📬 Notification Preview:</h5>
-                    <div id="adminNotificationContent"></div>
-                </div>
-
-                <button class="btn-send-notification" onclick="sendNotifications()" id="adminSendBtn" disabled>
-                    Send Notifications to All Users
-                </button>
+                <div id="adminEventSelectList" class="event-select-list"></div>
+                <button class="btn-send-notification" onclick="sendNotifications()" id="adminSendBtn" disabled>Send Notifications to All Users</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // Initialize data structures
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+        // ==========================================
+        //  KEYS ⚠️
+        // ==========================================
+        const firebaseConfig = {
+             apiKey: "AIzaSyBqK1_bYTLknAKtnluxacc5llZ2GZVjfh8",
+          authDomain: "schoolevents-44aec.firebaseapp.com",
+            projectId: "schoolevents-44aec",
+          storageBucket: "schoolevents-44aec.firebasestorage.app",
+          messagingSenderId: "1041074514027",
+          appId: "1:1041074514027:web:c595bfe78ed68d5060292e",
+          measurementId: "G-6JWQPZP1R4"
+        };
+        // ==========================================
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Global Variables
         let currentUser = null;
         let isAdmin = false;
-        let users = JSON.parse(localStorage.getItem('schoolUsers')) || [];
-        let events = JSON.parse(localStorage.getItem('schoolEvents')) || [];
         let selectedEventsForNotification = new Set();
+        let allEvents = [];
 
-        // ADMIN
+        // Admin Credentials (Hardcoded for prototype)
         const ADMIN_EMAIL = "admin@school.edu";
-        const ADMIN_PASSWORD = "admin123";
+        const ADMIN_PASSWORD = "admin";
 
-        // Check if user is already logged in
+        // Make functions globally available (because module scope hides them)
+        window.showTab = showTab;
+        window.showAdminLogin = showAdminLogin;
+        window.showUserLogin = showUserLogin;
+        window.handleLogin = handleLogin;
+        window.handleSignup = handleSignup;
+        window.handleAdminLogin = handleAdminLogin;
+        window.handleLogout = handleLogout;
+        window.toggleAddEvent = toggleAddEvent;
+        window.handleAddEvent = handleAddEvent;
+        window.deleteEvent = deleteEvent;
+        window.showAdminTab = showAdminTab;
+        window.loadAdminData = loadAdminData;
+        window.toggleEventSelection = toggleEventSelection;
+        window.sendNotifications = sendNotifications;
+
+        // On Load
         window.onload = function() {
             const storedUser = JSON.parse(localStorage.getItem('currentUser'));
             const storedIsAdmin = localStorage.getItem('isAdmin') === 'true';
@@ -946,104 +263,64 @@
             if (storedUser) {
                 currentUser = storedUser;
                 isAdmin = storedIsAdmin;
-                
-                if (isAdmin) {
-                    showAdminDashboard();
-                } else {
-                    showDashboard();
-                }
+                if (isAdmin) showAdminDashboard();
+                else showDashboard();
             }
-
-            // Enter key support
-            document.getElementById('loginPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') handleLogin();
-            });
-            document.getElementById('signupConfirmPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') handleSignup();
-            });
-            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') handleAdminLogin();
-            });
         };
 
-        // Authentication Page Switching
-        function showAdminLogin() {
-            document.getElementById('authPage').classList.add('hidden');
-            document.getElementById('adminAuthPage').classList.remove('hidden');
-            hideError();
-        }
+        // --- AUTH LOGIC (CLOUD) ---
 
-        function showUserLogin() {
-            document.getElementById('adminAuthPage').classList.add('hidden');
-            document.getElementById('authPage').classList.remove('hidden');
-            hideError();
-        }
-
-        function showTab(tab) {
-            // Update buttons
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Show form
-            if (tab === 'login') {
-                document.getElementById('loginForm').classList.remove('hidden');
-                document.getElementById('signupForm').classList.add('hidden');
-            } else {
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('signupForm').classList.remove('hidden');
-            }
-            hideError();
-        }
-
-        // --- AUTHENTICATION LOGIC ---
-
-        function handleSignup() {
+        async function handleSignup() {
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const confirm = document.getElementById('signupConfirmPassword').value;
 
-            if (!name || !email || !password) {
-                showError('Please fill in all fields');
-                return;
+            if (!name || !email || !password) return showError('All fields required');
+            if (password !== confirm) return showError('Passwords mismatch');
+
+            try {
+                // Check if user exists
+                const q = query(collection(db, "users"), where("email", "==", email));
+                const querySnapshot = await getDocs(q);
+                if (!querySnapshot.empty) return showError('Email already exists');
+
+                // Add to Cloud
+                const docRef = await addDoc(collection(db, "users"), {
+                    name: name,
+                    email: email,
+                    password: password // Note: In real app, never store plain text passwords!
+                });
+
+                alert("Account created! You can now login.");
+                showTab('login');
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                showError("Database Error: Check Console");
             }
-
-            if (password !== confirm) {
-                showError('Passwords do not match');
-                return;
-            }
-
-            if (users.find(u => u.email === email)) {
-                showError('Email already registered');
-                return;
-            }
-
-            const newUser = { id: Date.now(), name, email, password };
-            users.push(newUser);
-            localStorage.setItem('schoolUsers', JSON.stringify(users));
-
-            showSuccess('Account created! Please login.');
-            showTab('login');
-            // Manually switch active class on buttons
-            const btns = document.querySelectorAll('.tab-btn');
-            btns[0].classList.add('active');
-            btns[1].classList.remove('active');
         }
 
-        function handleLogin() {
+        async function handleLogin() {
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
 
-            const user = users.find(u => u.email === email && u.password === password);
+            try {
+                const q = query(collection(db, "users"), where("email", "==", email), where("password", "==", password));
+                const querySnapshot = await getDocs(q);
 
-            if (user) {
-                currentUser = user;
-                isAdmin = false;
-                saveSession();
-                showDashboard();
-            } else {
-                showError('Invalid email or password');
+                if (!querySnapshot.empty) {
+                    const userDoc = querySnapshot.docs[0];
+                    currentUser = { id: userDoc.id, ...userDoc.data() };
+                    isAdmin = false;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    localStorage.setItem('isAdmin', false);
+                    showDashboard();
+                } else {
+                    showError('Invalid email or password');
+                }
+            } catch (e) {
+                console.error("Login Error: ", e);
+                showError("Connection Error");
             }
         }
 
@@ -1054,7 +331,8 @@
             if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
                 currentUser = { name: "Admin", email: ADMIN_EMAIL };
                 isAdmin = true;
-                saveSession();
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                localStorage.setItem('isAdmin', true);
                 showAdminDashboard();
             } else {
                 showError('Invalid Admin Credentials', 'adminErrorMessage');
@@ -1062,303 +340,173 @@
         }
 
         function handleLogout() {
-            currentUser = null;
-            isAdmin = false;
-            localStorage.removeItem('currentUser');
-            localStorage.removeItem('isAdmin');
+            localStorage.clear();
             location.reload();
         }
 
-        function saveSession() {
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            localStorage.setItem('isAdmin', isAdmin);
-        }
-
-        // --- STUDENT DASHBOARD LOGIC ---
+        // --- STUDENT DASHBOARD (CLOUD) ---
 
         function showDashboard() {
             document.getElementById('authPage').classList.add('hidden');
             document.getElementById('dashboard').classList.add('active');
-            document.getElementById('welcomeMessage').textContent = `Welcome back, ${currentUser.name}!`;
-            renderEvents();
+            document.getElementById('welcomeMessage').textContent = `Welcome, ${currentUser.name}`;
+            loadEvents();
         }
 
-        function toggleAddEvent() {
-            const form = document.getElementById('addEventForm');
-            if (form.classList.contains('active')) {
-                form.classList.remove('active');
-            } else {
-                form.classList.add('active');
-            }
-        }
-
-        function handleAddEvent() {
+        async function handleAddEvent() {
             const title = document.getElementById('eventTitle').value;
             const type = document.getElementById('eventType').value;
             const date = document.getElementById('eventDate').value;
             const time = document.getElementById('eventTime').value;
             const desc = document.getElementById('eventDescription').value;
 
-            if (!title || !type || !date || !time) {
-                showError('Please fill in all required fields (*)', 'formError');
-                return;
+            if (!title || !type || !date) return showError('Fill required fields', 'formError');
+
+            try {
+                await addDoc(collection(db, "events"), {
+                    userId: currentUser.id, // Link event to this specific user
+                    title, type, date, time, desc
+                });
+                toggleAddEvent();
+                loadEvents(); // Reload list
+            } catch (e) {
+                console.error(e);
+                showError("Could not save event", 'formError');
             }
-
-            const newEvent = {
-                id: Date.now(),
-                title,
-                type,
-                date,
-                time,
-                desc
-            };
-
-            events.push(newEvent);
-            localStorage.setItem('schoolEvents', JSON.stringify(events));
-            
-            toggleAddEvent();
-            // Clear form
-            document.getElementById('eventTitle').value = '';
-            document.getElementById('eventDescription').value = '';
-            
-            renderEvents();
         }
 
-        function renderEvents() {
+        async function loadEvents() {
             const list = document.getElementById('eventsList');
-            const empty = document.getElementById('emptyState');
+            list.innerHTML = '<p style="text-align:center">Loading from Cloud...</p>';
             
-            list.innerHTML = '';
-
-            if (events.length === 0) {
-                empty.classList.remove('hidden');
-                return;
-            }
-
-            empty.classList.add('hidden');
-
-            // Sort by date
-            const sortedEvents = events.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            sortedEvents.forEach(evt => {
-                const card = document.createElement('div');
-                card.className = `event-card ${evt.type}`;
+            try {
+                const q = query(collection(db, "events"), where("userId", "==", currentUser.id));
+                const querySnapshot = await getDocs(q);
                 
-                // Check if urgent (within 3 days)
-                const isUrgent = new Date(evt.date) - new Date() < 259200000 && new Date(evt.date) > new Date();
-                const urgentHtml = isUrgent ? `<div class="event-urgent">🔥 Upcoming!</div>` : '';
+                list.innerHTML = '';
+                if (querySnapshot.empty) {
+                    document.getElementById('emptyState').classList.remove('hidden');
+                } else {
+                    document.getElementById('emptyState').classList.add('hidden');
+                    let events = [];
+                    querySnapshot.forEach((doc) => events.push({ id: doc.id, ...doc.data() }));
+                    
+                    // Sort locally
+                    events.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-                card.innerHTML = `
-                    <div class="event-content">
-                        <div class="event-badges">
-                            <span class="event-type ${evt.type}">${formatEventType(evt.type)}</span>
-                            ${urgentHtml}
-                        </div>
-                        <div class="event-title">${evt.title}</div>
-                        <div class="event-description">${evt.desc}</div>
-                        <div class="event-details">
-                            <div class="event-detail">📅 ${formatDate(evt.date)}</div>
-                            <div class="event-detail">⏰ ${evt.time}</div>
-                        </div>
-                    </div>
-                    <button class="btn-delete" onclick="deleteEvent(${evt.id})">🗑️</button>
-                `;
-                list.appendChild(card);
-            });
-        }
-
-        function deleteEvent(id) {
-            if(confirm('Are you sure you want to delete this event?')) {
-                events = events.filter(e => e.id !== id);
-                localStorage.setItem('schoolEvents', JSON.stringify(events));
-                renderEvents();
+                    events.forEach(evt => {
+                        const div = document.createElement('div');
+                        div.className = `event-card ${evt.type}`;
+                        div.innerHTML = `
+                            <div class="event-content">
+                                <div class="event-title">${evt.title}</div>
+                                <div class="event-details">📅 ${evt.date} • ${evt.time}</div>
+                            </div>
+                            <button class="btn-delete" onclick="deleteEvent('${evt.id}')">🗑️</button>
+                        `;
+                        list.appendChild(div);
+                    });
+                }
+            } catch(e) {
+                console.error(e);
             }
         }
 
-        // --- ADMIN DASHBOARD LOGIC ---
+        async function deleteEvent(docId) {
+            if(!confirm("Delete this?")) return;
+            await deleteDoc(doc(db, "events", docId));
+            loadEvents();
+        }
+
+        // --- ADMIN DASHBOARD (CLOUD) ---
 
         function showAdminDashboard() {
             document.getElementById('authPage').classList.add('hidden');
             document.getElementById('adminAuthPage').classList.add('hidden');
             document.getElementById('adminDashboard').classList.add('active');
-            
-            updateAdminStats();
-            renderUsersTable();
+            loadAdminData();
         }
 
-        function updateAdminStats() {
-            document.getElementById('adminTotalUsers').textContent = users.length;
-            document.getElementById('adminTotalEvents').textContent = events.length;
-            
-            const upcoming = events.filter(e => new Date(e.date) >= new Date()).length;
-            document.getElementById('adminUpcomingCount').textContent = upcoming;
-        }
-
-        function showAdminTab(tabName) {
-            // Toggle buttons
-            const buttons = document.querySelectorAll('.admin-tab');
-            buttons.forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-
-            // Toggle Content
-            if (tabName === 'users') {
-                document.getElementById('adminUsersTab').classList.remove('hidden');
-                document.getElementById('adminNotifyTab').classList.add('hidden');
-                renderUsersTable();
-            } else {
-                document.getElementById('adminUsersTab').classList.add('hidden');
-                document.getElementById('adminNotifyTab').classList.remove('hidden');
-                renderEventSelectionList();
-            }
-        }
-
-        function renderUsersTable() {
+        async function loadAdminData() {
+            // 1. Get Users
+            const usersSnap = await getDocs(collection(db, "users"));
             const tbody = document.getElementById('adminUsersTableBody');
             tbody.innerHTML = '';
             
-            users.forEach((u, index) => {
+            document.getElementById('adminTotalUsers').textContent = usersSnap.size;
+
+            usersSnap.forEach(doc => {
+                const u = doc.data();
                 const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${index + 1}</td>
-                    <td>${u.name} <span class="user-badge">Student</span></td>
-                    <td>${u.email}</td>
-                    <td><span style="color:#10b981; font-weight:600">Active</span></td>
-                `;
+                tr.innerHTML = `<td>${u.name}</td><td>${u.email}</td><td>${u.password}</td>`;
                 tbody.appendChild(tr);
             });
+
+            // 2. Get Events (for stats and notifications)
+            const eventsSnap = await getDocs(collection(db, "events"));
+            document.getElementById('adminTotalEvents').textContent = eventsSnap.size;
+            
+            allEvents = [];
+            eventsSnap.forEach(doc => allEvents.push({id: doc.id, ...doc.data()}));
         }
 
-        function renderEventSelectionList() {
+        function showAdminTab(tab) {
+            document.querySelectorAll('.admin-tab').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if(tab === 'users') {
+                document.getElementById('adminUsersTab').classList.remove('hidden');
+                document.getElementById('adminNotifyTab').classList.add('hidden');
+            } else {
+                document.getElementById('adminUsersTab').classList.add('hidden');
+                document.getElementById('adminNotifyTab').classList.remove('hidden');
+                renderNotifyList();
+            }
+        }
+
+        function renderNotifyList() {
             const list = document.getElementById('adminEventSelectList');
             list.innerHTML = '';
-            selectedEventsForNotification.clear();
-            toggleSendButton();
-
-            // Filter only future events
-            const futureEvents = events.filter(e => new Date(e.date) >= new Date());
-
-            if (futureEvents.length === 0) {
-                list.innerHTML = '<p style="text-align:center; padding:20px; color:#666">No upcoming events found.</p>';
+            
+            if(allEvents.length === 0) {
+                list.innerHTML = "No events found in database."; 
                 return;
             }
 
-            futureEvents.forEach(evt => {
+            allEvents.forEach(evt => {
                 const div = document.createElement('div');
                 div.className = 'event-checkbox';
-                div.onclick = (e) => {
-                    // Prevent triggering if clicking directly on checkbox (handled naturally)
-                    if (e.target.type !== 'checkbox') {
-                        const cb = div.querySelector('input');
-                        cb.checked = !cb.checked;
-                        toggleEventSelection(evt.id, cb.checked);
-                    }
-                };
-
                 div.innerHTML = `
-                    <input type="checkbox" onchange="toggleEventSelection(${evt.id}, this.checked)">
-                    <div class="event-checkbox-info">
-                        <div class="event-checkbox-title">${evt.title}</div>
-                        <div class="event-checkbox-date">${formatEventType(evt.type)} • ${formatDate(evt.date)}</div>
-                    </div>
+                    <input type="checkbox" onchange="toggleEventSelection('${evt.title}', this.checked)">
+                    <div class="event-checkbox-info"><div class="event-checkbox-title">${evt.title}</div></div>
                 `;
                 list.appendChild(div);
             });
         }
 
-        function toggleEventSelection(id, isChecked) {
-            if (isChecked) {
-                selectedEventsForNotification.add(id);
-            } else {
-                selectedEventsForNotification.delete(id);
-            }
-            renderNotificationPreview();
-            toggleSendButton();
-        }
-
-        function renderNotificationPreview() {
-            const previewContainer = document.getElementById('adminNotificationPreview');
-            const content = document.getElementById('adminNotificationContent');
-            content.innerHTML = '';
-
-            if (selectedEventsForNotification.size === 0) {
-                previewContainer.classList.add('hidden');
-                return;
-            }
-
-            previewContainer.classList.remove('hidden');
-            
-            selectedEventsForNotification.forEach(id => {
-                const evt = events.find(e => e.id === id);
-                if (evt) {
-                    const item = document.createElement('div');
-                    item.className = 'notification-item';
-                    item.innerHTML = `
-                        <div class="notification-item-title">📢 Reminder: ${evt.title}</div>
-                        <div class="notification-item-details">
-                            Don't forget about the upcoming ${formatEventType(evt.type)} on ${formatDate(evt.date)} at ${evt.time}.
-                        </div>
-                    `;
-                    content.appendChild(item);
-                }
-            });
-        }
-
-        function toggleSendButton() {
-            const btn = document.getElementById('adminSendBtn');
-            btn.disabled = selectedEventsForNotification.size === 0;
+        function toggleEventSelection(title, checked) {
+            if(checked) selectedEventsForNotification.add(title);
+            else selectedEventsForNotification.delete(title);
+            document.getElementById('adminSendBtn').disabled = selectedEventsForNotification.size === 0;
         }
 
         function sendNotifications() {
-            const count = selectedEventsForNotification.size;
-            const userCount = users.length;
-            
-            // In a real app, this would send emails/SMS via backend
-            // Here we simulate it
-            alert(`✅ Success!\n\n${count} notifications have been queued for ${userCount} students.`);
-            
-            // Reset UI
-            selectedEventsForNotification.clear();
-            renderEventSelectionList();
-            document.getElementById('adminNotificationPreview').classList.add('hidden');
-            
-            const msg = document.getElementById('adminSuccessMessage');
-            msg.textContent = `Successfully sent notifications to ${userCount} users.`;
-            msg.classList.remove('hidden');
-            setTimeout(() => msg.classList.add('hidden'), 3000);
+            // In a real app, this would trigger Cloud Functions. 
+            // Here we just acknowledge the data exists.
+            alert(`Simulation: Sent ${selectedEventsForNotification.size} notifications to ${document.getElementById('adminTotalUsers').textContent} users.`);
         }
 
-        // --- UTILITIES ---
-
-        function formatDate(dateString) {
-            const options = { weekday: 'short', month: 'short', day: 'numeric' };
-            return new Date(dateString).toLocaleDateString('en-US', options);
+        // --- UTILS ---
+        function showTab(t) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            if(t==='login'){ document.getElementById('loginForm').classList.remove('hidden'); document.getElementById('signupForm').classList.add('hidden'); }
+            else { document.getElementById('loginForm').classList.add('hidden'); document.getElementById('signupForm').classList.remove('hidden'); }
         }
-
-        function formatEventType(type) {
-            if (!type) return '';
-            if (type === 'src-week') return 'SRC Week';
-            return type.charAt(0).toUpperCase() + type.slice(1);
-        }
-
-        function showError(msg, elementId = 'errorMessage') {
-            const el = document.getElementById(elementId);
-            if(el) {
-                el.textContent = msg;
-                el.classList.remove('hidden');
-                setTimeout(() => el.classList.add('hidden'), 3000);
-            }
-        }
-
-        function hideError() {
-            const el = document.getElementById('errorMessage');
-            const adminEl = document.getElementById('adminErrorMessage');
-            if(el) el.classList.add('hidden');
-            if(adminEl) adminEl.classList.add('hidden');
-        }
-
-        function showSuccess(msg) {
-            alert(msg);
-        }
+        function showAdminLogin() { document.getElementById('authPage').classList.add('hidden'); document.getElementById('adminAuthPage').classList.remove('hidden'); }
+        function showUserLogin() { document.getElementById('adminAuthPage').classList.add('hidden'); document.getElementById('authPage').classList.remove('hidden'); }
+        function toggleAddEvent() { document.getElementById('addEventForm').classList.toggle('active'); }
+        function showError(msg, id='errorMessage') { const el=document.getElementById(id); el.textContent=msg; el.classList.remove('hidden'); setTimeout(()=>el.classList.add('hidden'), 3000); }
     </script>
 </body>
 </html>
