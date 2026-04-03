@@ -935,9 +935,13 @@
             const snap = await getDocs(q);
             if (!snap.empty) return showAlert('authAlert', 'An account with this email already exists.');
 
-            await addDoc(collection(db, "users"), { name, email, password });
-            alert("Account created. You can now sign in.");
-            showTab('login');
+            const docRef = await addDoc(collection(db, "users"), { name, email, password });
+            currentUser = { id: docRef.id, name, email, password };
+            isAdmin = false;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('isAdmin', false);
+            showAlert('authAlert', `Welcome to CU Events, ${name.split(' ')[0]}! Your account has been created.`, 'success');
+            setTimeout(() => showDashboard(), 1500);
         } catch (e) {
             showAlert('authAlert', 'Could not create account. Please try again.');
         }
